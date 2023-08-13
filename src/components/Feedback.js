@@ -3,7 +3,7 @@ import {Text, View, TextInput, TouchableOpacity, ImageBackground} from 'react-na
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {FontAwesome5 , MaterialCommunityIcons, FontAwesome  } from '@expo/vector-icons'
-import imgAtivCompleta from './assets/CompletedIcon.png'
+import imgAtivCompleta from '../assets/img/CompletedIcon.png'
 
 
 const estilos = {
@@ -45,8 +45,6 @@ const estilos = {
 const Tab = createBottomTabNavigator();
 
 const Python = () =>{
-  const [email, setEmail] = useState("");
-
       return(
       <View style={{flex:1, backgroundColor: "white"}}> 
          <Text style={{textAlign:"center",fontSize:35, fontWeight:"bold",marginTop:"40px", marginBottom:"40px"}}>Feedback</Text>
@@ -63,7 +61,7 @@ const Python = () =>{
         </View>
       
       </View>
-  )
+  );
   }
 
 
@@ -95,5 +93,5 @@ export default ()=>{
         </Tab.Navigator>
       </View>
     </NavigationContainer>
-  )
+  );
 }

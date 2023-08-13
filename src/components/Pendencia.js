@@ -1,12 +1,9 @@
 import React,  {useState} from 'react';
-import {Text, View, TextInput, TouchableOpacity, Image, ImageBackground} from 'react-native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {NavigationContainer} from '@react-navigation/native';
-import {FontAwesome5 , MaterialCommunityIcons, FontAwesome  } from '@expo/vector-icons'
-import completedIcon from './assets/CompletedIcon.png'
-import warningIcon from './assets/WarningIcon.png'
-import incompletedIcon from './assets/IncompletedIcon.png'
-import setinha from './assets/setinhaPreta.png'
+import {Text, View,TouchableOpacity, Image, ImageBackground} from 'react-native';
+import completedIcon from '../assets/img/CompletedIcon.png';
+import warningIcon from '../assets/img/WarningIcon.png';
+import incompletedIcon from '../assets/img/IncompletedIcon.png';
+import setinha from '../assets/img/setinhaPreta.png';
 
 const estilos = {
   divzinha: {
@@ -22,7 +19,7 @@ const estilos = {
     fontWeight: "bold",
     flexWrap: "wrap", 
     maxWidth: "85%",
-    fontFamily: "", fontSize: 12
+    fontSize: 12
   },
   conteudo:{
     backgroundColor: "#A0DAF3",
@@ -60,22 +57,20 @@ const estilos = {
       flexDirection: "column",
     },
     textoDetalhes:{
-      padding: 20,
+      padding: 20
     }
 }
 
 function TextoConteudo(props){
-
   return(
     <View>
-    <Text style={estilos.textoDetalhes}>{props.titulo}</Text>
-    <View style={{backgroundColor: "#7D7D7D", height: 1, width: "95%", alignSelf: "center"}}></View>
+      <Text style={estilos.textoDetalhes}>{props.titulo}</Text>
+      <View style={{backgroundColor: "#7D7D7D", height: 1, width: "95%", alignSelf: "center"}}></View>
     </View>
-  )
+  );
 }
 
 function Divzinha(props) {
-  
   const [detalhesVisiveis, setDetalhesVisiveis] = useState(false);
 
   const handlePress = () => {
@@ -93,7 +88,7 @@ function Divzinha(props) {
   <View>
     <View style={estilos.divzinha}>
       <ImageBackground source={imagem} style={{ height: 35, width: 36, margin: 10, alignSelf: "center" }} />
-      <View style={{ flex: 1}}> {}
+      <View style={{ flex: 1}}> 
         <Text style={[estilos.texto, {paddingBottom: 10}]}>{props.titulo}</Text>
         <Text style={[estilos.texto, {maxWidth: "65%", fontWeight: "400"}]}>{mensagem}</Text>
         <TouchableOpacity style={[estilos.botaoConcluir, {display: visivel}]} disabled={props.status < props.config.aceitavel}><Text style={{fontWeight: pesoFonte}}>Concluir</Text></TouchableOpacity>
@@ -103,73 +98,47 @@ function Divzinha(props) {
 
     {detalhesVisiveis && (
         <View style={estilos.detalhes}>
-        <View>
-          {props.detalhes.map((detalhe, index) => (
-            <>
-            <TextoConteudo key={index} titulo={detalhe}>{}</TextoConteudo>
-            <View style={{position: "absolute",backgroundColor: "#A0DAF3", height: 1, bottom: 0, width: "95%", alignSelf: "center"}}>
-          </View></>
-          ))}
-        </View>
-          
+          <View>
+            {props.detalhes.map((detalhe, index) => (
+              <>
+              <TextoConteudo key={index} titulo={detalhe}>{}</TextoConteudo>
+              <View style={{position: "absolute",backgroundColor: "#A0DAF3", height: 1, bottom: 0, width: "95%", alignSelf: "center"}}>
+              </View>
+            </>
+            ))}
+          </View>
         </View>
     )}
   </View>
   );
 }
 
-
-const Tab = createBottomTabNavigator();
-
 const Pendencias = () =>{
-
       return(
       <View style={{flex:1, backgroundColor: "white", marginBottom: 100}}> 
-         <Text style={{textAlign:"center",fontSize:35, fontWeight:"bold",marginTop:"32px", marginBottom:"10px"}}>Pendências</Text>
+        <Text style={{textAlign:"center",fontSize:35, fontWeight:"bold",marginTop:"32px", marginBottom:"10px"}}>Pendências</Text>
 
         <Divzinha titulo={"Atividade de empreendedorismo e investimentos"} 
         config={{completo: 100, aceitavel: 90}} 
-        status={100} detalhes={[]}/>
+        status={100} detalhes={[""]}/>
 
         <Divzinha titulo={"Atividade de React Native"} config={{completo: 100, aceitavel: 80}}  status={80} detalhes={["5.5: Criando componentes", "5.6: useState e useEffect"]}/>
 
-	<Divzinha titulo={"Atividade de Python: Listas"} config={{completo: 100, aceitavel: 70}}  status={60} detalhes={["2.2: Quando usar listas", "2.3: Como tratar strings de listas", "2.6: Fracionando as listas", "2.7: Lista de listas"]}/>
+	      <Divzinha titulo={"Atividade de Python: Listas"} config={{completo: 100, aceitavel: 70}}  status={60} detalhes={["2.2: Quando usar listas", "2.3: Como tratar strings de listas", "2.6: Fracionando as listas", "2.7: Lista de listas"]}/>
 
         <Divzinha titulo={"Atividade de .Net"} config={{completo: 100, aceitavel: 90}}  status={90} detalhes={["1.5: Gerenciamento de memória em .NET"]}/>
 
         <Divzinha titulo={"Atividade de Algoritmos"} config={{completo: 100, aceitavel: 90}}  status={80} detalhes={["4.6: Arvores binárias", "4.8: Analise de Complexidade"]}/>
 
       </View>
-  )
+  );
   }
 
 
 export default ()=>{
   return(
-    <NavigationContainer>
+    <View style={{flex:1}}>
       <Pendencias/>
-      <View style={{position: "fixed", bottom: 0, width: "100%"}}>
-        <Tab.Navigator useLegacyImplementation tabBarOptions={{tabStyle:{backgroundColor:"#1C95CF"}, activeTintColor:"1B98E0", inactiveTintColor:"white" }}>
-          <Tab.Screen name="Pendencia"
-          options={{tabBarIcon:({size, color}) => (
-            <FontAwesome5   name="clipboard-list" size={size} color={color}/>
-          )}}
-          />
-
-          <Tab.Screen name="Home" 
-          options={{tabBarIcon:({size, color}) => (
-            <FontAwesome  name="home" size={size} color={color}/>
-          )}}
-          />
-
-          <Tab.Screen name="Perfil do usuário" 
-          options={{tabBarIcon:({size, color}) => (
-            <MaterialCommunityIcons  name="account" size={size} color={color}/>
-          )}}
-          />
-
-        </Tab.Navigator>
-      </View>
-    </NavigationContainer>
+    </View>
   )
 }
