@@ -41,7 +41,10 @@ const CadastroForm = () =>{
           <TextInput placeholder=" min 8 caracteres" style={{backgroundColor:"#A0DAF3", height:"30px", width:"250px",borderRadius:"5px",marginTop:"5px", marginBottom:"60px", fontSize:"14px", color:"#13293D"}}/>
             <TouchableOpacity style={{backgroundColor:"#1B98E0", width:"140px", height:"40px", borderRadius:"5px", justifyContent:"center", alignItems:"center", color:"white"}}>
                 <Text style={{color:"white", fontSize:18 }}>Cadastrar</Text>
-            </TouchableOpacity>  
+            </TouchableOpacity>
+            <Text style={{color:"#3DA2FF",marginTop:"32px",fontWeight: 600}}>
+              <TouchableOpacity onPress={() => navigation.navigate('Login')}>Voltar</TouchableOpacity>
+            </Text>
         </View>
       </View>
   )

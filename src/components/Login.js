@@ -1,5 +1,7 @@
 import React,  {useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Text, View, TextInput, TouchableOpacity} from 'react-native';
+import {useNavigation } from '@react-navigation/native';
 
 
 
@@ -28,7 +30,9 @@ const LoginForm = () =>{
             <TouchableOpacity style={{backgroundColor:"#1B98E0", width:"110px", height:"40px", borderRadius:"5px", justifyContent:"center", alignItems:"center", color:"white"}}>
                 <Text style={{color:"white", fontSize:18 }}>Entrar</Text>
             </TouchableOpacity>  
-            <Text style={{fontWeight:200, color:"#13293D",marginTop:"32px"}}>Não tem uma conta? Cadastre-se aqui</Text>
+            <Text style={{fontWeight:200, color:"#3DA2FF",marginTop:"32px"}}>Não tem conta? 
+              <TouchableOpacity onPress={() => navigation.navigate('Cadastro')} style={{ fontWeight: 600}}> Se cadastre clicando aqui</TouchableOpacity>
+            </Text>
 
       </View>
   )
