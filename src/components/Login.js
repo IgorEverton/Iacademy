@@ -22,7 +22,6 @@ const LoginForm = () =>{
         const user = JSON.parse(userString);
         if (user.email === email && user.senha === senha) {
           alert('Sucesso', 'Login bem-sucedido');
-          // Navegar para a próxima tela, por exemplo, Dashboard
           navigation.navigate('Dashboard');
         } else {
           alert('Erro', 'Credenciais inválidas');
@@ -46,7 +45,6 @@ const LoginForm = () =>{
 
         <View style={{flexDirection:"row",justifyContent:"space-between",marginTop:"32px",width:"250px"}}>
           <Text style={styles.label}>Senha</Text>       
-          {/* <Text style={styles.label}>Esqueceu sua senha?</Text> */}
         </View>
           <TextInput style={styles.input} value={senha} onChangeText={setSenha}/>
           <View style={{paddingTop:"2rem"}}>
@@ -62,8 +60,6 @@ const LoginForm = () =>{
   );
   }
 
-
-
 export default ()=>{
   return(
     <View style={{flex:1}}> 
@@ -73,8 +69,7 @@ export default ()=>{
   );
 }
 
-
-
+//estilização
 const styles = StyleSheet.create({
   container: {
     flex:1,
