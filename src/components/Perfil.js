@@ -10,7 +10,6 @@ const Perfil=()=>{
   const [confirmaSenha, setconfirmaSenha] = useState("");
 
   useEffect(() => {
-    // Carregar os dados do usuário do AsyncStorage ao carregar a tela de Perfil
     loadUserData();
   }, []);
 
@@ -42,10 +41,13 @@ const Perfil=()=>{
       const userString = await AsyncStorage.getItem('user');
       if (userString) {
         const user = JSON.parse(userString);
-        // Atualizar os dados do usuário com os novos valores
         const updatedUser = { ...user, nome, email, senha };
         await AsyncStorage.setItem('user', JSON.stringify(updatedUser));
         alert('Dados atualizados com sucesso');
+        setNome("");
+        setEmail("");
+        setSenha("");
+        setconfirmaSenha("");
       } else {
         alert('Usuário não encontrado');
       }

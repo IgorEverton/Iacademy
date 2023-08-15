@@ -118,10 +118,6 @@ const Pendencias = () =>{
       <View style={{flex:1, backgroundColor: "white", marginBottom: 100}}> 
         <Text style={{textAlign:"center",fontSize:35, fontWeight:"bold",marginTop:"32px", marginBottom:"10px"}}>Pendências</Text>
 
-        <Divzinha titulo={"Atividade de empreendedorismo e investimentos"} 
-        config={{completo: 100, aceitavel: 90}} 
-        status={100} detalhes={[""]}/>
-
         <Divzinha titulo={"Atividade de React Native"} config={{completo: 100, aceitavel: 80}}  status={80} detalhes={["5.5: Criando componentes", "5.6: useState e useEffect"]}/>
 
 	      <Divzinha titulo={"Atividade de Python: Listas"} config={{completo: 100, aceitavel: 70}}  status={60} detalhes={["2.2: Quando usar listas", "2.3: Como tratar strings de listas", "2.6: Fracionando as listas", "2.7: Lista de listas"]}/>

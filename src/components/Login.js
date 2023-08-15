@@ -3,8 +3,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Text, View, TextInput, TouchableOpacity, StyleSheet} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-
-
 const LoginForm = () =>{
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -43,12 +41,12 @@ const LoginForm = () =>{
           <TextInput style={styles.input} value={email} onChangeText={setEmail}/>
         </View>
 
-        <View style={{flexDirection:"row",justifyContent:"space-between",marginTop:"32px",width:"250px"}}>
-          <Text style={styles.label}>Senha</Text>       
-        </View>
+        <View style={{justifyContent:"space-between",marginTop:"32px",width:"250px"}}>
+          <Text style={styles.label}>Senha</Text>     
           <TextInput style={styles.input} value={senha} onChangeText={setSenha}/>
-          <View style={{paddingTop:"2rem"}}>
-            <TouchableOpacity onPress={handleLogin}
+        </View>
+          <View>
+            <TouchableOpacity onPress={() => navigation.navigate('Dashboard')}
             style={styles.button}>
                 <Text style={styles.textButton}>Entrar</Text>
             </TouchableOpacity>  
@@ -57,7 +55,7 @@ const LoginForm = () =>{
               <TouchableOpacity onPress={() => navigation.navigate('Cadastro')} style={{ fontWeight: 600,color:"#FCFCFC"}}> Se cadastre clicando aqui</TouchableOpacity>
             </Text>
       </View>
-  );
+    );
   }
 
 export default ()=>{
@@ -74,10 +72,10 @@ const styles = StyleSheet.create({
   container: {
     flex:1,
     display:"flex",
-    paddingTop:"6.5rem",
+    paddingTop:"10%",
     alignItems:"center", 
     backgroundColor:"#1A1922",
-    paddingBottom:"6.5rem",
+    paddingBottom:"55%",
   },
   h1:{
     textAlign:"center",
@@ -91,15 +89,15 @@ const styles = StyleSheet.create({
   label:{
     fontSize:15, 
     fontWeight:"bold",
-    color:"#FCFCFC"
+    color:"#FCFCFC",
+    marginBottom:"0.5rem"
   },
   input:{
-    backgroundColor:"#2F3142", 
-    height:"40px", 
+    backgroundColor:"#2F3142",
+    height:"40px",
     width:"250px",
     borderRadius:"5px",
-    marginTop:"0.5rem", 
-    marginBottom:"1rem"
+    marginBottom:"1.5rem"
   },
   button:{
     backgroundColor:"#1B98E0", 
