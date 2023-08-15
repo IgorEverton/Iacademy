@@ -45,7 +45,7 @@ const LoginForm = () =>{
           <Text style={styles.label}>Senha</Text>     
           <TextInput style={styles.input} value={senha} onChangeText={setSenha}/>
         </View>
-          <View>
+          <View style={{paddingTop:"3rem"}}>
             <TouchableOpacity onPress={() => navigation.navigate('Dashboard')}
             style={styles.button}>
                 <Text style={styles.textButton}>Entrar</Text>
@@ -72,10 +72,10 @@ const styles = StyleSheet.create({
   container: {
     flex:1,
     display:"flex",
-    paddingTop:"10%",
+    paddingTop:"8%",
     alignItems:"center", 
     backgroundColor:"#1A1922",
-    paddingBottom:"55%",
+    paddingBottom:"60%",
   },
   h1:{
     textAlign:"center",

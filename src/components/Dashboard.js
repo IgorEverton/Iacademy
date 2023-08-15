@@ -13,7 +13,6 @@ const Dashboard = () =>{
       <View style={{ flex:1, alignItems:"center", backgroundColor:"#1A1922"}}>
         <Text style={estilos.h1}>Dashboard</Text>
         <Text style={estilos.h2}>Cursos em andamento</Text>
-
       <View style={estilos.curso}>
         <ImageBackground style={{margin: 5, padding: 20, alignSelf: "center"}} source={imgMongoDB} />
           <TouchableOpacity style={estilos.botao}>Continuar de onde parou</TouchableOpacity>
@@ -45,13 +44,11 @@ const Dashboard = () =>{
       <View style={estilos.curso}>
         <ImageBackground style={{margin: 5, padding: 20, alignSelf: "center", width:"37px", height:"37px"}} source={imgGames} />
         <Text style={{fontWeight:"bold", fontSize:10, width:"190px",color:"#FCFCFC"}}>Desenvolvimento de jogos {'\n'}Internet das coisas  {'\n'}Carreira QA: Processos e Automação</Text>
-        
       </View>
 
       <View style={estilos.curso}>
         <ImageBackground style={{margin: 5, padding: 20, alignSelf: "center", width:"37px", height:"37px"}} source={imgInvest} />
         <Text style={{fontWeight:"bold", fontSize:10, width:"190px",color:"#FCFCFC"}}>Bolsa de Valores {'\n'}PIB  {'\n'}Criptomoedas</Text>
-        
       </View>
      </View>
   );

@@ -1,21 +1,30 @@
 import React,  {useState} from 'react';
-import {Text, View,TouchableOpacity, Image, ImageBackground} from 'react-native';
+import {Text, View,TouchableOpacity, Image, ImageBackground, ScrollView} from 'react-native';
 import completedIcon from '../assets/img/CompletedIcon.png';
 import warningIcon from '../assets/img/WarningIcon.png';
 import incompletedIcon from '../assets/img/IncompletedIcon.png';
 import setinha from '../assets/img/setinhaPreta.png';
 
 const estilos = {
+  container:{
+    flex:1,
+    display:"flex",
+    paddingTop:"8%",
+    alignItems:"center", 
+    backgroundColor:"#1A1922",
+    paddingBottom:"60%",
+  },
   divzinha: {
-    backgroundColor: "#3DABDF",
-    marginHorizontal: '10px',
-    paddingVertical: "10px",
-    borderRadius: 3,
+    backgroundColor:"#2F3142", 
+    width:"18rem", height:"100px", 
+    borderRadius:"5px",
+    padding: 10,
     flexDirection: "row",
-    marginTop: 15,
+    minWidth: "230px",
+    marginBottom:"10px"
   },
   texto:{
-    color: "black",
+    color: "white",
     fontWeight: "bold",
     flexWrap: "wrap", 
     maxWidth: "85%",
@@ -31,17 +40,18 @@ const estilos = {
     fontSize: 10
   },
    botaoConcluir:{
-    backgroundColor:"#A4D8F5",
+    backgroundColor:"#0880A2",
     width:"80px", height:"19px", 
     borderRadius: 5, 
-    justifyContent:"center", alignItems:"center", 
+    justifyContent:"center", 
+    alignItems:"center", 
     position: "absolute",
     right: "5%",
     fontSize: 9,
     bottom: 0,
   },
     botaozinho:{
-    backgroundColor:"#A4D8F5",
+    backgroundColor:"#262734",
     height: 20,
     width: 20,
     borderRadius: 3,
@@ -51,12 +61,13 @@ const estilos = {
     justifyContent: "center",
   },
     detalhes:{
-      backgroundColor: "#A0DAF3",
+      backgroundColor: "#2F3142",
       marginHorizontal: 10,
       borderRadius: 3,
       flexDirection: "column",
     },
     textoDetalhes:{
+      color:"white",
       padding: 20
     }
 }
@@ -86,6 +97,7 @@ function Divzinha(props) {
 
   return (
   <View>
+    <ScrollView>
     <View style={estilos.divzinha}>
       <ImageBackground source={imagem} style={{ height: 35, width: 36, margin: 10, alignSelf: "center" }} />
       <View style={{ flex: 1}}> 
@@ -109,14 +121,15 @@ function Divzinha(props) {
           </View>
         </View>
     )}
+    </ScrollView>
   </View>
   );
 }
 
 const Pendencias = () =>{
       return(
-      <View style={{flex:1, backgroundColor: "white", marginBottom: 100}}> 
-        <Text style={{textAlign:"center",fontSize:35, fontWeight:"bold",marginTop:"32px", marginBottom:"10px"}}>Pendências</Text>
+      <View style={estilos.container}> 
+        <Text style={{textAlign:"center",fontSize:35, fontWeight:"bold",marginTop:"32px", marginBottom:"10px", color:"white"}}>Pendências</Text>
 
         <Divzinha titulo={"Atividade de React Native"} config={{completo: 100, aceitavel: 80}}  status={80} detalhes={["5.5: Criando componentes", "5.6: useState e useEffect"]}/>
 
@@ -133,7 +146,7 @@ const Pendencias = () =>{
 
 export default ()=>{
   return(
-    <View style={{flex:1}}>
+    <View >
       <Pendencias/>
     </View>
   )
