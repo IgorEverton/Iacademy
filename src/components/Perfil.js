@@ -1,10 +1,9 @@
 import React,  {useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Text, View, TextInput, TouchableOpacity} from 'react-native';
+import {Text, View, TextInput, TouchableOpacity, StyleSheet} from 'react-native';
 
 
 const Perfil=()=>{
-  const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [confirmaSenha, setconfirmaSenha] = useState("");
@@ -57,44 +56,44 @@ const Perfil=()=>{
   };
 
       return(
-      <View style={{display:"flex",flex:1,backgroundColor:"#1A1922"}}>
-        <View style={{ alignItems:"end", marginRight:"40px"}}>
-        </View>
+      <View style={style.container}>
+
         <View style={{alignItems:"center"}}>
         <Text style={{textAlign:"center",fontSize:35, fontWeight:"bold",marginTop:"40px", marginBottom:"40px", color:"#FCFCFC"}}>Perfil</Text>
-
-          <View style={{marginTop:"35px"}}>
+          
+          <View style={{marginTop:"2rem"}}>
             <Text style={{fontSize:15, fontWeight:"bold", color:"#FCFCFC"}}>Novo E-mail</Text>
-            <TextInput style={{backgroundColor:"#0880A2", height:"30px", width:"250px",borderRadius:"5px", marginTop:"5px", fontSize:"14px", color:"#13293D"}}
-            value={nome}
-            onChangeText={setNome}
-            />
-          </View>
-
-
-          <View style={{marginTop:"35px"}}>
-            <Text style={{fontSize:15, fontWeight:"bold", color:"#FCFCFC"}}>Confime o novo E-mail</Text>
-            <TextInput style={{backgroundColor:"#0880A2", height:"30px", width:"250px",borderRadius:"5px", marginTop:"5px", fontSize:"14px", color:"#13293D"}}
+            <TextInput style={style.inputs}
             value={email}
             onChangeText={setEmail}
             />
           </View>
 
-          <View style={{flexDirection:"row",justifyContent:"space-between",marginTop:"32px",width:"250px"}}>
+
+          <View style={{marginTop:"2rem"}}>
+            <Text style={{fontSize:15, fontWeight:"bold", color:"#FCFCFC"}}>Confime o novo E-mail</Text>
+            <TextInput style={style.inputs}
+            value={email}
+            onChangeText={setEmail}
+            />
+          </View>
+
+          <View style={{marginTop:"2rem"}}>
             <Text style={{fontSize:15, fontWeight:"bold", color:"#FCFCFC"}}>Nova senha</Text>       
-          </View>
-          <TextInput style={{backgroundColor:"#0880A2", height:"30px", width:"250px",borderRadius:"5px",marginTop:"5px", marginBottom:"40px", fontSize:"14px"}}
+          <TextInput style={style.inputs} secureTextEntry={true}
           value={senha}
-          onChangeText={setSenha}/>
-
-          <View style={{width:"250px"}}>
-            <Text style={{fontSize:15, fontWeight:"bold", color:"#FCFCFC"}}>Confime sua senha</Text>       
+          onChangeText={setSenha}
+          />
           </View>
 
-          <TextInput style={{backgroundColor:"#0880A2", height:"30px", width:"250px",borderRadius:"5px",marginTop:"5px", marginBottom:"20px", fontSize:"14px", color:"#13293D"}}
+          <View style={{marginTop:"2rem"}}>
+            <Text style={{fontSize:15, fontWeight:"bold", color:"#FCFCFC"}}>Confime sua senha</Text>       
+
+          <TextInput style={style.inputs} secureTextEntry={true}
           value={confirmaSenha}
           onChangeText={setconfirmaSenha}
           />
+          </View>
             <TouchableOpacity onPress={handleAtualizar}
             style={{backgroundColor:"#0880A2", color:"white", width:"180px", height:"40px", borderRadius:"5px", justifyContent:"center", alignItems:"center", marginVertical:50,marginBottom:"5%"}}>
                 <Text style={{color:"white", fontSize:18 , color:"#FCFCFC"}}>Salvar Alterações</Text>
@@ -116,3 +115,22 @@ export default function App() {
 }
 
 
+
+const style = StyleSheet.create({
+  container:{
+      display:"flex",
+      flex:1,
+      backgroundColor:"#1A1922"
+  },
+  inputs:{
+    backgroundColor:"#0880A2", 
+    height:"30px", 
+    width:"250px",
+    borderRadius:"5px", 
+    marginTop:"5px", 
+    fontSize:"14px", 
+    color:"white",
+    fontSize:18,
+    fontWeight:"bold"
+  }
+});

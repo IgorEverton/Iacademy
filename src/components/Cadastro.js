@@ -68,7 +68,7 @@ const CadastroForm = () =>{
 
           <View style={styles.inputView}>
             <Text style={styles.label}>Confime sua senha</Text>       
-            <TextInput placeholder=" min 8 caracteres" style={styles.input} value={confirmaSenha} onChangeText={setconfirmaSenha}/>
+            <TextInput placeholder=" min 8 caracteres" style={styles.input} value={confirmaSenha} onChangeText={setconfirmaSenha} secureTextEntry={true}/>
           </View>
           <View style={{paddingTop:"2rem"}}>
             <TouchableOpacity style={styles.button} onPress={handleCadastro}>
@@ -119,7 +119,10 @@ const styles = StyleSheet.create({
     width:"250px",
     borderRadius:"5px",
     marginTop:"0.5rem", 
-    marginBottom:"1rem"
+    marginBottom:"1rem",
+    color:"white",
+    fontSize:18,
+    fontWeight:"bold"
   },
   inputView:{
     marginTop:"1.5rem"

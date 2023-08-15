@@ -43,10 +43,10 @@ const LoginForm = () =>{
 
         <View style={{justifyContent:"space-between",marginTop:"32px",width:"250px"}}>
           <Text style={styles.label}>Senha</Text>     
-          <TextInput style={styles.input} value={senha} onChangeText={setSenha}/>
+          <TextInput style={styles.input} value={senha} onChangeText={setSenha} secureTextEntry={true}/>
         </View>
           <View style={{paddingTop:"3rem"}}>
-            <TouchableOpacity onPress={() => navigation.navigate('Dashboard')}
+            <TouchableOpacity onPress={handleLogin}
             style={styles.button}>
                 <Text style={styles.textButton}>Entrar</Text>
             </TouchableOpacity>  
@@ -97,7 +97,10 @@ const styles = StyleSheet.create({
     height:"40px",
     width:"250px",
     borderRadius:"5px",
-    marginBottom:"1.5rem"
+    marginBottom:"1.5rem",
+    color:"white",
+    fontSize:18,
+    fontWeight:"bold"
   },
   button:{
     backgroundColor:"#1B98E0", 
