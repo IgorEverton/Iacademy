@@ -61,7 +61,6 @@ const LoginForm = () =>{
 export default ()=>{
   return(
     <View style={{flex:1}}> 
-
       <LoginForm/>
     </View>
   );
