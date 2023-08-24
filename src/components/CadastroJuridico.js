@@ -3,29 +3,29 @@ import {Text, View, TextInput, TouchableOpacity, StyleSheet} from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
-
-
 const CadastroForm = () =>{
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [cnpj, setCnpj] = useState("")
   const [confirmaSenha, setconfirmaSenha] = useState("");
   const navigation = useNavigation();
 
 
   const handleCadastro = async () => {
-    if (!nome || !email || !senha || !confirmaSenha) {
+    if (!nome || !cnpj || !email || !senha || !confirmaSenha) {
       alert('Erro', 'Todos os campos são obrigatórios');
     }
     if (senha !== confirmaSenha) {
       alert('As senhas não coincidem');
     }
     try {
-      await AsyncStorage.setItem('user', JSON.stringify({ nome, email, senha }));
+      await AsyncStorage.setItem('user', JSON.stringify({ nome, email, cnpj, senha }));
       alert('Cadastro realizado com sucesso');
       setNome('');
       setEmail('');
       setSenha('');
+      setCnpj('');
       confirmaSenha('');
       return true;
     } catch (error) {
@@ -51,14 +51,19 @@ const CadastroForm = () =>{
         <Text style={styles.h1}>Cadastro</Text>
 
           <View style={styles.inputView}>
-            <Text style={styles.label}>Nome Completo</Text>
+            <Text style={styles.label}>Nome da Empresa</Text>
             <TextInput placeholder=" seu nome completo"style={styles.input} value={nome} onChangeText={setNome}/>
           </View>
 
 
           <View style={styles.inputView}>
             <Text style={styles.label}>E-mail</Text>
-            <TextInput placeholder=" exemplo@dominio.com" style={styles.input} value={email} onChangeText={setEmail}/>
+            <TextInput type="email"placeholder=" exemplo@dominio.com" style={styles.input} value={email} onChangeText={setEmail}/>
+          </View>
+
+          <View style={styles.inputView}>
+            <Text style={styles.label}>CNPJ</Text>
+            <TextInput placeholder="Digite seu CPF" style={styles.input} value={cnpf} onChangeText={setCnpj}/>
           </View>
 
           <View style={styles.inputView}>

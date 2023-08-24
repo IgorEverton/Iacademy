@@ -1,5 +1,5 @@
 import React,  {useState} from 'react';
-import {Text, View,TouchableOpacity, Image, ImageBackground, ScrollView, StyleSheet} from 'react-native';
+import {Text, View,TouchableOpacity, Image, ImageBackground, ScrollView} from 'react-native';
 import completedIcon from '../assets/img/CompletedIcon.png';
 import warningIcon from '../assets/img/WarningIcon.png';
 import incompletedIcon from '../assets/img/IncompletedIcon.png';
