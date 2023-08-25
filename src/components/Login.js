@@ -48,7 +48,7 @@ const LoginForm = () => {
 
       <View>
         <Text style={styles.label}>E-mail</Text>
-        <TextInput style={styles.input} value={email} onChangeText={setEmail} />
+        <TextInput keyboardType="email-address"style={styles.input} value={email} onChangeText={setEmail} />
       </View>
 
       <View

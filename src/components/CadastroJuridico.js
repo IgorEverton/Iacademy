@@ -3,7 +3,7 @@ import {Text, View, TextInput, TouchableOpacity, StyleSheet} from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
-const CadastroForm = () =>{
+const CadastroFormJuridica = () =>{
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -58,12 +58,12 @@ const CadastroForm = () =>{
 
           <View style={styles.inputView}>
             <Text style={styles.label}>E-mail</Text>
-            <TextInput type="email"placeholder=" exemplo@dominio.com" style={styles.input} value={email} onChangeText={setEmail}/>
+            <TextInput keyboardType="email-address"placeholder=" exemplo@dominio.com" style={styles.input} value={email} onChangeText={setEmail}/>
           </View>
 
           <View style={styles.inputView}>
             <Text style={styles.label}>CNPJ</Text>
-            <TextInput placeholder="Digite seu CPF" style={styles.input} value={cnpf} onChangeText={setCnpj}/>
+            <TextInput keyboardType="numeric"placeholder="Digite seu CPF" style={styles.input} value={cnpf} onChangeText={setCnpj}/>
           </View>
 
           <View style={styles.inputView}>
@@ -93,7 +93,7 @@ const CadastroForm = () =>{
 export default ()=>{
   return(
     <View style={{flex:1}}> 
-      <CadastroForm/>
+      <CadastroFormJuridica/>
     </View>
   );
 }

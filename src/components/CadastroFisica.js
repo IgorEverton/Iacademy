@@ -59,12 +59,12 @@ const CadastroForm = () =>{
 
           <View style={styles.inputView}>
             <Text style={styles.label}>E-mail</Text>
-            <TextInput type="email"placeholder=" exemplo@dominio.com" style={styles.input} value={email} onChangeText={setEmail}/>
+            <TextInput keyboardType="email-address"placeholder=" exemplo@dominio.com" style={styles.input} value={email} onChangeText={setEmail}/>
           </View>
 
           <View style={styles.inputView}>
             <Text style={styles.label}>CPF</Text>
-            <TextInput placeholder="Digite seu CPF" style={styles.input} value={cpf} onChangeText={setCpf}/>
+            <TextInput keyboardType="numeric"placeholder="Digite seu CPF" style={styles.input} value={cpf} onChangeText={setCpf}/>
           </View>
 
           <View style={styles.inputView}>
