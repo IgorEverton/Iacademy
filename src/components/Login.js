@@ -69,7 +69,7 @@ const LoginForm = () => {
 
       <View style={{ paddingTop: "3rem" }}>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Dashboard")}
+          onPress={handleLogin}
           style={styles.button}
         >
           <Text style={styles.textButton}>Entrar</Text>

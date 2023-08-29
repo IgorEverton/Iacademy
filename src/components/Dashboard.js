@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, ImageBackground, TouchableOpacity, StyleSheet} from 'react-native';
+import {Text, View, ImageBackground, TouchableOpacity, StyleSheet, ScrollView} from 'react-native';
 import imgMongoDB from '../assets/img/MongoDBIcon.png';
 import imgPy from '../assets/img/PythonIcon.png';
 import imgRedis from '../assets/img/RedisNoSQL.png';
@@ -10,6 +10,7 @@ import imgInvest from '../assets/img/Invest.png';
 
 const Dashboard = () =>{
       return(
+        <ScrollView contentContainerStyle={estilos.continerScroll}>
       <View style={{ flex:1, alignItems:"center", backgroundColor:"#1A1922"}}>
         <Text style={estilos.h1}>Dashboard</Text>
         <Text style={estilos.h2}>Cursos em andamento</Text>
@@ -51,6 +52,7 @@ const Dashboard = () =>{
         <Text style={{fontWeight:"bold", fontSize:10, width:"190px",color:"#FCFCFC"}}>Bolsa de Valores {'\n'}PIB  {'\n'}Criptomoedas</Text>
       </View>
      </View>
+     </ScrollView>
   );
   }
 
@@ -68,6 +70,14 @@ export default ()=>{
 
 
 const estilos=StyleSheet.create({
+  continerScroll:{
+    flexGrow: 1,
+    display:"flex",
+    flex:1, 
+    backgroundColor:"#1A1922",
+    paddingTop: 30,
+    paddingBottom: 30
+  },
   h1:{
   textAlign:"center",
   fontSize:43, 

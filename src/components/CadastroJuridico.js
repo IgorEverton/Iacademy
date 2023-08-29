@@ -7,7 +7,7 @@ const CadastroFormJuridica = () =>{
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [cnpj, setCnpj] = useState("")
+  const [cnpj, setCnpj] = useState("");
   const [confirmaSenha, setconfirmaSenha] = useState("");
   const navigation = useNavigation();
 
@@ -19,8 +19,11 @@ const CadastroFormJuridica = () =>{
     if (senha !== confirmaSenha) {
       alert('As senhas não coincidem');
     }
+
+    const userType = "juridica";
+
     try {
-      await AsyncStorage.setItem('user', JSON.stringify({ nome, email, cnpj, senha }));
+      await AsyncStorage.setItem('user', JSON.stringify({ nome, email, cnpj, senha, userType  }));
       alert('Cadastro realizado com sucesso');
       setNome('');
       setEmail('');
@@ -46,6 +49,7 @@ const CadastroFormJuridica = () =>{
   
 
       return(
+        
       <View style={styles.container}>
         <View style={{alignItems:"center"}}>
         <Text style={styles.h1}>Cadastro</Text>
@@ -63,7 +67,7 @@ const CadastroFormJuridica = () =>{
 
           <View style={styles.inputView}>
             <Text style={styles.label}>CNPJ</Text>
-            <TextInput keyboardType="numeric"placeholder="Digite seu CPF" style={styles.input} value={cnpf} onChangeText={setCnpj}/>
+            <TextInput keyboardType="numeric"placeholder="Digite seu CNPJ" style={styles.input} value={cnpj} onChangeText={setCnpj}/>
           </View>
 
           <View style={styles.inputView}>
@@ -101,9 +105,12 @@ export default ()=>{
 
 const styles = StyleSheet.create({
   container: {
+    flexGrow: 1,
     display:"flex",
     flex:1, 
     backgroundColor:"#1A1922",
+    paddingTop: 30,
+    paddingBottom: 30
   },
   h1:{
     textAlign:"center",
@@ -124,13 +131,12 @@ const styles = StyleSheet.create({
     width:"250px",
     borderRadius:"5px",
     marginTop:"0.5rem", 
-    marginBottom:"1rem",
     color:"white",
     fontSize:18,
     fontWeight:"bold"
   },
   inputView:{
-    marginTop:"1.5rem"
+    marginTop:"1rem"
   },
   button:{
     backgroundColor:"#1B98E0", 
