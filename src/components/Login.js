@@ -20,7 +20,7 @@ const LoginForm = () => {
 
   const handleLogin = async () => {
     if (!email || !senha) {
-      alert("Erro", "Preencha todos os campos");
+      alert("Erro, Preencha todos os campos");
       return;
     }
 
@@ -198,6 +198,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     rowGap: "2rem",
+    overflow:"auto"
+
   },
   modalText: {
     fontSize: 18,

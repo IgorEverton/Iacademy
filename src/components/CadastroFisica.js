@@ -37,7 +37,7 @@ const CadastroForm = () => {
       setSenha("");
       setCpf("");
       confirmaSenha("");
-      handleCadastroAndNavigate();
+      navigation.navigate("Login");
       return true;
     } catch (error) {
       Alert.alert("Ocorreu um erro ao realizar o cadastro" + error);
@@ -45,14 +45,6 @@ const CadastroForm = () => {
     }
   };
 
-  const handleCadastroAndNavigate = async () => {
-    const cadastroSucesso = await handleCadastro();
-    if (cadastroSucesso) {
-      navigation.navigate("Login");
-    } else {
-      alert("O cadastro não foi bem-sucedido.");
-    }
-  };
 
   return (
     <View style={styles.container}>
