@@ -8,7 +8,7 @@ import {
   StyleSheet,
   Modal
 } from "react-native";
-import { atualizarSenha, atualizarUsuario, pegarUsuarioPorId } from "./fetchers/fetcherUsuario.js";
+import { atualizarSenha, atualizarUsuario, pegarUsuarioPorId } from "../fetchers/fetcherUsuario";
 
 
 const Perfil = () => {

@@ -9,7 +9,7 @@ import {
   Modal,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { logar } from "./fetchers/fetcherUsuario.js";
+import { logar } from "../fetchers/fetcherUsuario";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");

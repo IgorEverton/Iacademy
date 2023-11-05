@@ -7,7 +7,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { cadastrar } from "./fetchers/fetcherUsuario.js";
+import { cadastrar } from "../fetchers/fetcherUsuario";
 import Toast from 'react-native-toast-message';
 
 const CadastroForm = () => {

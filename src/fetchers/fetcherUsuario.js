@@ -60,5 +60,6 @@ export {
     cadastrar,
     atualizarUsuario,
     pegarUsuarioPorId,
-    atualizarSenha
+    atualizarSenha,
+    excluirUsuario
 }
