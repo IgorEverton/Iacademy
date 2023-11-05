@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import {
   Text,
   View,
@@ -13,117 +13,122 @@ import imgRedis from "../assets/img/RedisNoSQL.png";
 import imgPhp from "../assets/img/PHP.png";
 import imgGames from "../assets/img/DevGames.png";
 import imgInvest from "../assets/img/Invest.png";
+import { cursosDisponiveis,cursosMatriculados } from "../fetchers/fetcherApp";
+import { SvgXml } from 'react-native-svg'; // Importe o componente SvgXml
+
+
+async function SolicitarListaCursosDisponiveis() {
+  try {
+    const response = await cursosDisponiveis();
+    if (response.status === 401) {
+      navigate("/")
+    }
+    if (response && response.data) {
+      const dados = response.data;
+      return dados;
+    } else {
+      return [];
+    }
+  } catch (error) {
+    
+    if (error.response.status === 401) {
+      navigate("/")
+    }
+    else{
+      return []
+    }
+  }
+}
+
+async function SolicitarListaCursosMatriculados() {
+  try {
+    const response = await cursosMatriculados();
+    if (response.status === 401) {
+      navigate("/")
+    }
+    if (response.status === 200 && response.data) {
+      const dados = response.data;
+      return dados;
+    } else if (response.status === 404) {
+      return [];
+    }
+  } catch (error) {
+    if (error.response.status === 401) {
+      navigate("/")
+    }else{
+      return []
+    }
+  }
+}
+
 
 const Dashboard = () => {
+  const [listaCursosNaoMatriculadosParaRenderizar, setListaCursosNaoMatriculadosParaRenderizar] = useState([]);
+  const [listaCursosMatriculadosParaRenderizar, setListaCursosMatriculadosParaRenderizar] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const listaTodosOsCursosDisponiveisRetornado = await SolicitarListaCursosDisponiveis();
+      const listaCursosMatriculados = await SolicitarListaCursosMatriculados();
+
+      setListaCursosMatriculadosParaRenderizar(listaCursosMatriculados);
+      setListaCursosNaoMatriculadosParaRenderizar(listaTodosOsCursosDisponiveisRetornado);
+      setIsLoading(false); 
+    };
+
+    fetchData();
+  }, []);
+
+
+
   return (
     <ScrollView contentContainerStyle={estilos.continerScroll}>
       <View
-        style={{ flex: 1, alignItems: "center", backgroundColor: "#1A1922" }}
+        style={{width:"100%", flex: 1, alignItems: "center", backgroundColor: "#1A1922" }}
       >
         <Text style={estilos.h1}>Dashboard</Text>
         <Text style={estilos.h2}>Cursos em andamento</Text>
-        <View style={estilos.curso}>
-          <ImageBackground
-            style={{ margin: 5, padding: 20, alignSelf: "center" }}
-            source={imgMongoDB}
-          />
-          <TouchableOpacity style={estilos.botao}>
-            Continuar de onde parou
-          </TouchableOpacity>
-          <Text style={{ fontWeight: "bold", fontSize: 10, color: "#FCFCFC" }}>
-            MongoDB
-          </Text>
-        </View>
-
-        <View style={estilos.curso}>
-          <ImageBackground
-            style={{ margin: 5, padding: 20, alignSelf: "center" }}
-            source={imgPy}
-          />
-          <TouchableOpacity style={estilos.botao}>
-            Continuar de onde parou
-          </TouchableOpacity>
-          <Text style={{ fontWeight: "bold", fontSize: 10, color: "#FCFCFC" }}>
-            Python completo
-          </Text>
-        </View>
-
+        {listaCursosMatriculadosParaRenderizar.data !== undefined && listaCursosMatriculadosParaRenderizar.data.length !== 0 ? (
+               listaCursosMatriculadosParaRenderizar.data.map((curso, index) => (
+                <View style={estilos.curso}>
+                <ImageBackground
+                  style={{ margin: 5, padding: 20, alignSelf: "center" }}
+                  source={`data:image/svg+xml;utf8,${encodeURIComponent(curso.icon)}`}
+                />
+                
+                <TouchableOpacity style={estilos.botao}>
+                  Continuar de onde parou
+                </TouchableOpacity>
+                <Text style={{ fontWeight: "bold", fontSize: 10, color: "#FCFCFC" }}>
+                  {curso.theme} - {curso.category}
+                </Text>
+              </View>
+              ))
+            ) : (
+              <Text>Não há treinametos disponíveis para você</Text>
+            )}
         <Text style={estilos.h2}>Veja também:</Text>
-
-        <View style={estilos.curso}>
-          <ImageBackground
-            style={{ margin: 5, padding: 20, alignSelf: "center" }}
-            source={imgRedis}
-          />
-          <TouchableOpacity style={estilos.botao}>
-            Continuar de onde parou
-          </TouchableOpacity>
-          <Text style={{ fontWeight: "bold", fontSize: 10, color: "#FCFCFC" }}>
-            Redis NoSQL
-          </Text>
-        </View>
-
-        <View style={estilos.curso}>
-          <ImageBackground
-            style={{ margin: 5, padding: 20, alignSelf: "center" }}
-            source={imgPhp}
-          />
-          <TouchableOpacity style={estilos.botao}>
-            Continuar de onde parou
-          </TouchableOpacity>
-          <Text style={{ fontWeight: "bold", fontSize: 10, color: "#FCFCFC" }}>
-            PHP básico
-          </Text>
-        </View>
-
-        <Text style={estilos.h2}>Veja também:</Text>
-
-        <View style={estilos.curso}>
-          <ImageBackground
-            style={{
-              margin: 5,
-              padding: 20,
-              alignSelf: "center",
-              width: "37px",
-              height: "37px",
-            }}
-            source={imgGames}
-          />
-          <Text
-            style={{
-              fontWeight: "bold",
-              fontSize: 10,
-              width: "190px",
-              color: "#FCFCFC",
-            }}
-          >
-            Desenvolvimento de jogos {"\n"}Internet das coisas {"\n"}Carreira
-            QA: Processos e Automação
-          </Text>
-        </View>
-
-        <View style={estilos.curso}>
-          <ImageBackground
-            style={{
-              margin: 5,
-              padding: 20,
-              alignSelf: "center",
-              width: "37px",
-              height: "37px",
-            }}
-            source={imgInvest}
-          />
-          <Text
-            style={{
-              fontWeight: "bold",
-              fontSize: 10,
-              width: "190px",
-              color: "#FCFCFC",
-            }}
-          >
-            Bolsa de Valores {"\n"}PIB {"\n"}Criptomoedas
-          </Text>
-        </View>
+        
+        {listaCursosNaoMatriculadosParaRenderizar.data !== undefined && listaCursosNaoMatriculadosParaRenderizar.data.length !== 0 ? (
+               listaCursosNaoMatriculadosParaRenderizar.data.map((curso, index) => (
+                <View style={estilos.curso}>
+                <ImageBackground
+                  style={{ margin: 5, padding: 20, alignSelf: "center" }}
+                  source={`data:image/svg+xml;utf8,${encodeURIComponent(curso.icon)}`}
+                />
+                <TouchableOpacity style={estilos.botao}>
+                  Matricular
+                </TouchableOpacity>
+                <Text style={{ fontWeight: "bold", fontSize: 10, color: "#FCFCFC" }}>
+                {curso.theme} - {curso.category}
+                </Text>
+              </View>
+              ))
+            ) : (
+              <Text>Não há treinametos disponíveis para você</Text>
+            )}
+ 
       </View>
     </ScrollView>
   );
@@ -131,7 +136,8 @@ const Dashboard = () => {
 
 export default () => {
   return (
-    <View>
+    <View style={{height:'100vh',backgroundColor: "#1A1922",
+  }}>
       <Dashboard />
     </View>
   );
@@ -145,6 +151,7 @@ const estilos = StyleSheet.create({
     backgroundColor: "#1A1922",
     paddingTop: 30,
     paddingBottom: 30,
+    width:"100%",
     marginBottom: "5rem",
   },
   h1: {

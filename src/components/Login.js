@@ -39,9 +39,8 @@ const LoginForm = () => {
         await AsyncStorage.setItem('token', token);
         await AsyncStorage.setItem('tokenExpiration', tokenExpiration.toString());
         await AsyncStorage.setItem('user', JSON.stringify(userData));
-  
-        setAuthenticated(true);
-        navigate('/dashboard');
+        navigation.navigate('Dashboard');
+
       } else {
         setError('Credenciais inválidas. Tente novamente.');
       }

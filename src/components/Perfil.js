@@ -137,6 +137,21 @@ const handleExcluirConta = async () => {
   }
 };
 
+const handleAtualizarConta = async () => {
+  try {
+    const response = await atualizarUsuario(user_id, {nome,email,cpf,cnpj});
+
+    if (response.status === 204) {
+      alert("usuario atualizado com sucesso");
+    } else {
+      alert("Falha ao atualizar conta");
+    }
+  } catch (error) {
+    console.error("Erro ao atualizar conta", error);
+  }
+};
+
+
   
   return (
     <View style={style.container}>
@@ -197,7 +212,6 @@ const handleExcluirConta = async () => {
           />
         </View>
         <TouchableOpacity
-          onPress={handleAtualizar}
           style={style.botao}
         >
           <Text style={{ color: "white", fontSize: 18 }}>
@@ -245,7 +259,7 @@ const handleExcluirConta = async () => {
           />
 
           <TouchableOpacity
-            onPress={atualizarSenhaPorIdController}
+            onPress={()=>{handleAtualizarConta()}}
             style={style.botao}
           >
             <Text style={{ color: 'white', fontSize: 18 }}>
