@@ -6,16 +6,44 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import { cadastrar } from "./fetchers/fetcherUsuario.js";
+import Toast from 'react-native-toast-message';
 
 const CadastroForm = () => {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [cpf, setCpf] = useState("");
+  const [cnpj, setCnpj] = useState("");
   const [confirmaSenha, setconfirmaSenha] = useState("");
   const navigation = useNavigation();
+
+  function FormataDados(dados) {
+    const response = {
+      "name": dados.nomeCompleto,
+      "email": dados.email,
+      "cpf": dados.cpf,
+      "cellphoneNumberWithDDD": dados.cellphoneNumberWithDDD,
+      "confirmPassword": dados.confirmPassword,
+      "password": dados.password,
+      "companyRef": dados.cnpj
+    }
+    return response;
+  }
+
+  async function solicitacaoCadastroUsuario(dados) {
+    try {
+      const response = await cadastrar(dados);
+      if (response.status === 201) {
+        return { "status": response.status, "dados": response.data }
+      }
+    } catch (error) {
+      console.log(error)
+      return { "status": error.response.status, "dados": error.response.data }
+    }
+  }
+
 
   const handleCadastro = async () => {
     if (!nome || !cpf || !email || !senha || !confirmaSenha) {
@@ -24,20 +52,29 @@ const CadastroForm = () => {
     if (senha !== confirmaSenha) {
       alert("As senhas não coincidem");
     }
-    const userType = "fisica";
-
     try {
-      await AsyncStorage.setItem(
-        "user",
-        JSON.stringify({ nome, email, cpf, senha, userType })
-      );
-      alert("Cadastro realizado com sucesso");
-      setNome("");
-      setEmail("");
-      setSenha("");
-      setCpf("");
-      confirmaSenha("");
-      navigation.navigate("Login");
+      const request = FormataDados(formData)
+      const response = await solicitacaoCadastroUsuario(request);
+      if (response.status === 201) {
+        Toast.show({
+          type: 'success',
+          text1: 'Conta criada',
+          text2: 'Seja bem-vindo(a) ao IAcademy. Solicite a ativação da sua conta conosco',
+          position: 'top',
+          visibilityTime: 9000,
+          autoHide: true,
+          topOffset: 30,
+          bottomOffset: 40,
+          onShow: () => {},
+        });
+        navigation.navigate("Login");
+        setNome("");
+        setEmail("");
+        setSenha("");
+        setCpf("");
+        setCnpj("");
+        confirmaSenha("");
+      }
       return true;
     } catch (error) {
       Alert.alert("Ocorreu um erro ao realizar o cadastro" + error);
@@ -48,7 +85,7 @@ const CadastroForm = () => {
 
   return (
     <View style={styles.container}>
-      <View style={{ alignItems: "center" }}>
+      <View style={{flex:1, alignItems: "center"}}>
         <Text style={styles.h1}>Cadastro</Text>
 
         <View style={styles.inputView}>
@@ -82,6 +119,16 @@ const CadastroForm = () => {
             onChangeText={setCpf}
           />
         </View>
+        <View style={styles.inputView}>
+          <Text style={styles.label}>CNPJ</Text>
+          <TextInput
+            keyboardType="numeric"
+            placeholder="Digite o CNPJ"
+            style={styles.input}
+            value={cnpj}
+            onChangeText={setCnpj}
+          />
+        </View>
 
         <View style={styles.inputView}>
           <Text style={styles.label}>Senha</Text>
@@ -103,7 +150,7 @@ const CadastroForm = () => {
             secureTextEntry={true}
           />
         </View>
-        <View style={{ paddingTop: "2rem" }}>
+        <View style={{marginTop:"2rem"}}>
           <TouchableOpacity style={styles.button} onPress={handleCadastro}>
             <Text style={styles.textButton}>Cadastrar</Text>
           </TouchableOpacity>
@@ -132,6 +179,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flex: 1,
     backgroundColor: "#1A1922",
+    overflow:"visible"
   },
   h1: {
     textAlign: "center",
@@ -154,7 +202,7 @@ const styles = StyleSheet.create({
     marginTop: "0.5rem",
     color: "white",
     fontSize: 18,
-    fontWeight: "bold",
+    fontWeight: "bold"
   },
   inputView: {
     marginTop: "1rem",

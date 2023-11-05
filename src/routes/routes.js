@@ -4,7 +4,6 @@ import RoutesBar from './routesBar';
 
 import Login from '../components/Login';
 import CadastroFisica from '../components/cadastroFisica';
-import CadastroJuridico from '../components/CadastroJuridico';
 import Dashboard from '../components/Dashboard';
 import Perfil from '../components/Perfil';
 import Pendencia from '../components/Pendencia';
@@ -17,7 +16,6 @@ export default props => (
     <Stack.Navigator  screenOptions={{headerShown: false}}>
         <Stack.Screen name="Login" component={Login}/>
         <Stack.Screen name="CadastroFisica" component={CadastroFisica}/>
-        <Stack.Screen name="CadastroJuridico" component={CadastroJuridico}/>
         <Stack.Screen name="Dashboard" component={RoutesBar}/>
     </Stack.Navigator>
     );

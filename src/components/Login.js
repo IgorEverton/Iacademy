@@ -9,38 +9,48 @@ import {
   Modal,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { logar } from "./fetchers/fetcherUsuario.js";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
-  const [modalVisible, setModalVisible] = useState(true);
-  const [tipoPessoa, setTipoPessoa] = useState("");
   const navigation = useNavigation();
 
+  const formData = {
+    email: email, 
+    password: senha, 
+  };
+
   const handleLogin = async () => {
-    if (!email || !senha) {
-      alert("Erro, Preencha todos os campos");
+    if (!formData.email || !formData.password) {
+      setError("Preencha todos os campos.");
       return;
     }
-
+  
     try {
-      const userString = await AsyncStorage.getItem("user");
-      if (userString) {
-        const user = JSON.parse(userString);
-        if (user.email === email && user.senha === senha) {
-          alert("Sucesso", "Login bem-sucedido");
-          navigation.navigate("Dashboard");
-        } else {
-          alert("Erro", "Credenciais inválidas");
-        }
+      const response = await logar(formData);
+      const token = response.data.token;
+      const userData = response.data;
+  
+      if (token) {
+        const sessionDuration = 60 * 60;
+        const tokenExpiration = Date.now() / 1000 + sessionDuration;
+  
+        await AsyncStorage.setItem('token', token);
+        await AsyncStorage.setItem('tokenExpiration', tokenExpiration.toString());
+        await AsyncStorage.setItem('user', JSON.stringify(userData));
+  
+        setAuthenticated(true);
+        navigate('/dashboard');
       } else {
-        alert("Erro", "Usuário não encontrado");
+        setError('Credenciais inválidas. Tente novamente.');
       }
     } catch (error) {
-      alert("Ocorreu um erro ao fazer o login");
+      console.log(error);
+      setError('Credenciais inválidas. Tente novamente.');
     }
   };
+  
 
   return (
     <View style={styles.container}>
@@ -75,57 +85,9 @@ const LoginForm = () => {
           <Text style={styles.textButton}>Entrar</Text>
         </TouchableOpacity>
       </View>
-      <Text style={{ fontWeight: 200, marginTop: "32px", color: "#FCFCFC" }}>
+      <Text style={{ fontWeight: 200, marginTop: "32px", color: "#FCFCFC" }} onPress={()=>{navigation.navigate("CadastroFisica");}}>
         Não tem conta?
-        <TouchableOpacity
-          onPress={() => {
-            if (tipoPessoa === "fisica") {
-              navigation.navigate("CadastroFisica");
-            } else if (tipoPessoa === "juridica") {
-              navigation.navigate("CadastroJuridico");
-            }
-          }}
-          style={{ fontWeight: 600, color: "#FCFCFC" }}
-        >
-          {" "}
-          Se cadastre clicando aqui
-        </TouchableOpacity>
       </Text>
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalText}>Qual seu tipo de conta?</Text>
-            <TouchableOpacity
-              style={styles.modalButton}
-              onPress={() => {
-                setTipoPessoa("fisica");
-                setModalVisible(false);
-                setIsLoginFormVisible(true);
-              }}
-            >
-              <Text style={styles.modalButtonText}>Conta Pessoal</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.modalButton}
-              onPress={() => {
-                setTipoPessoa("juridica");
-                setModalVisible(false);
-                setIsLoginFormVisible(true);
-              }}
-            >
-              <Text style={styles.modalButtonText}>Conta da Empresa</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
     </View>
   );
 };
