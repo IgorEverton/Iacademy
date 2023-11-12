@@ -7,14 +7,7 @@ import {
   StyleSheet,
   ScrollView
 } from "react-native";
-import imgMongoDB from "../assets/img/MongoDBIcon.png";
-import imgPy from "../assets/img/PythonIcon.png";
-import imgRedis from "../assets/img/RedisNoSQL.png";
-import imgPhp from "../assets/img/PHP.png";
-import imgGames from "../assets/img/DevGames.png";
-import imgInvest from "../assets/img/Invest.png";
 import { cursosDisponiveis,cursosMatriculados } from "../fetchers/fetcherApp";
-import { SvgXml } from 'react-native-svg'; // Importe o componente SvgXml
 
 
 async function SolicitarListaCursosDisponiveis() {

@@ -33,9 +33,9 @@ const Perfil = () => {
    }
     try {
       setId(response.data.id)
-      setNome(response.data.nome);
+      setNome(response.data.name);
       setEmail(response.data.email);
-      setSenha(response.data.senha);
+      setCpf(response.data.cpf)
       
     } catch (error) {
       if (error.response.status === 400) {
@@ -55,6 +55,7 @@ const dadosAtualizacaoUsuario = {
   nome: nome,
   email: email,
   senha: senha,
+  companyRef: "iacademy",
 };
 const handleAtualizar = async () => {
   if (!nome || !email || !senha || !confirmaSenha) {
@@ -85,8 +86,10 @@ const handleAtualizar = async () => {
 };
 }
 const dadosAtualizacaoSenha = {
-  senhaAtual: senhaAtual,
-  novaSenha: novaSenha, 
+  email: email,
+  oldPassword: senhaAtual,
+  newPassword: novaSenha, 
+  confirmPassword: confirmaSenha
 };
 
 async function atualizarSenhaPorIdController(user_id, dadosAtualizacaoSenha) {
@@ -99,7 +102,7 @@ async function atualizarSenhaPorIdController(user_id, dadosAtualizacaoSenha) {
     return;
   }  
   try {
-    const response = await atualizarSenha(user_id, dados);
+    const response = await atualizarSenha(user_id, dadosAtualizacaoSenha);
 
     if (response.status === 204) {
       return { result: "ATUALIZADO", dados: [] };
@@ -169,14 +172,14 @@ const handleAtualizarConta = async () => {
           Perfil
         </Text>
 
-        <View style={{ marginTop: "2rem" }}>
+        <View style={{ marginTop: "1rem" }}>
           <Text style={style.label}>
             Nome Completo
           </Text>
           <TextInput style={style.inputs} value={nome} onChangeText={setNome} />
         </View>
 
-        <View style={{ marginTop: "2rem" }}>
+        <View style={{ marginTop: "1rem" }}>
           <Text style={style.label}>
             E-mail
           </Text>
@@ -187,7 +190,7 @@ const handleAtualizarConta = async () => {
           />
         </View>
 
-        <View style={{ marginTop: "2rem" }}>
+        <View style={{ marginTop: "1rem" }}>
           <Text style={style.label}>
             Nova senha
           </Text>
@@ -199,7 +202,7 @@ const handleAtualizarConta = async () => {
           />
         </View>
 
-        <View style={{ marginTop: "2rem" }}>
+        <View style={{ marginTop: "1rem" }}>
           <Text style={style.label}>
             Confime sua senha
           </Text>
@@ -259,7 +262,7 @@ const handleAtualizarConta = async () => {
           />
 
           <TouchableOpacity
-            onPress={()=>{handleAtualizarConta()}}
+            onPress={()=>{atualizarSenhaPorIdController()}}
             style={style.botao}
           >
             <Text style={{ color: 'white', fontSize: 18 }}>
@@ -293,7 +296,7 @@ const style = StyleSheet.create({
     height: "30px",
     width: "250px",
     borderRadius: "5px",
-    marginTop: "5px",
+    marginTop: "2px",
     fontSize: "14px",
     color: "white",
     fontSize: 18,
@@ -312,7 +315,8 @@ const style = StyleSheet.create({
     borderRadius: "5px",
     justifyContent: "center",
     alignItems: "center",
-    marginVertical: 50,
+    marginVertical: 10,
     marginBottom: "5%",
+
   }
 });
